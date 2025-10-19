@@ -1,82 +1,72 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Idealizart Login</title>
+  <title>Idealizart Login</title>
+  <style>
+    body {
+      background-color: pink;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      color: #a8f;
+      background-color: #afa;
+      border: 5px solid black;
+      -webkit-text-stroke: 2px black;
+      font-family: "Times New Roman";
+      font-size: 150px;
+      text-align: center;
+      border-radius: 25px;
+      width: 80%;
+      margin: 50px auto 0 auto;
+      position: relative;
+      display: block;
+    }
+
+    #h2 {
+      color: black;
+      font-family: Trebuchet MS;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 100px;
+      margin-top: 300px;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100px;
+      width: 100%;
+      margin-top: 50px;
+    }
+
+    #caixa {
+      width: 70%;
+      height: 100px;
+      background-color: black;
+      color: white;
+      font-size: 100px;
+      font-family: Georgia;
+    }
+
+    #botao {
+      display: block;
+      margin: 100px auto;
+      height: 100px;
+      width: 600px;
+      font-size: 100px;
+      border: 5px solid black;
+      border-radius: 25px;
+    }
+
+    #botao:hover {
+      background-color: #0f0;
+    }
+  </style>
 </head>
-
-<style>
-  body {
-    background-color: pink;
-    margin: 0;
-    padding: 0;
-  }
-
-  h1 {
-    color: #a8f;
-    background-color: #afa;
-    border: 5px solid black;
-    -webkit-text-stroke: 2px black;
-    font-family: "Times New Roman";
-    font-size: 150px;
-    text-align: center;
-    border-radius: 25px;
-    width: 80%;
-    margin: 50px auto 0 auto;
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  
-  #h2 {
-    color: black;
-    font-family: Trebuchet MS;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 100px;
-    position: relative;
-    left: 30%;
-    top: 1100px;
-  }
-  
-  .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    height: 100px;
-    width: 1600px;
-    top: 1150px;
-  }
-  
-  #caixa {
-    width: 70%;
-    height: 100px;
-    background-color: black;
-    color: white;
-    font-size: 100px;
-    font-family: Georgia;
-  }
-  
-  #botao {
-    text-align: center;
-    left: 50%;
-    position: relative;
-    height: 100px;
-    width: 600px;
-    top: 1200px;
-    font-size: 100px;
-    border: 5px solid transparent black;
-    border-radius: 25px;
-  }
-  
-  #botao:hover {
-    background-color: #0f0;
-  }
-</style>
-
 <body>
   <h1>Idealizart Login</h1>
   <div id="h2">Digite Seu Nome</div>
@@ -88,14 +78,14 @@
     function clicou() {
       var texto = document.getElementById("caixa").value;
       if (texto.length < 3 || texto.length > 10) {
-          alert("Nome deve ter entre 3 e 10 letras");
-          caixa.value = "";
-          return;
+        alert("Nome deve ter entre 3 e 10 letras");
+        caixa.value = "";
+        return;
       }
       if (texto.match(/\d/)) {
-          caixa.value = "";
-          alert("O nome não pode ter numeros");
-          return;
+        caixa.value = "";
+        alert("O nome não pode ter numeros");
+        return;
       }
       localStorage.setItem("teste", texto);
       window.location.href = `https://johndevz.github.io/IdealizArts/?texto=${texto}`;
