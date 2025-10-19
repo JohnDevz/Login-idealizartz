@@ -74,30 +74,36 @@
     <input id="caixa" maxlength="10" type="text">
   </div>
   <button id="botao" onclick="clicou()">Entrar</button>
-  <script>
-    function clicou() {
-      var texto = document.getElementById("caixa").value;
-      if (texto.length < 3 || texto.length > 10) {
-        alert("Nome deve ter entre 3 e 10 letras");
-        caixa.value = "";
-        return;
-      }
-      if (texto.match(/\d/)) {
-        caixa.value = "";
-        alert("O nome não pode ter numeros");
-        return;
-      }
-      localStorage.setItem("teste", texto);
-      window.location.href = `https://johndevz.github.io/IdealizArts/?texto=${texto}`;
-    }
   
-window.onload = function() {
-    const nomeSalvo = localStorage.getItem("teste");
-    
-    if (nomeSalvo) {
-        window.location.href = `https://johndevz.github.io/IdealizArts/?texto=${nomeSalvo}`;
-    }
-};
-  </script>
+  <script>
+document.addEventListener("DOMContentLoaded", function() {
+  const nomeSalvo = localStorage.getItem("teste");
+
+  if (nomeSalvo) {
+    window.location.href = `https://johndevz.github.io/IdealizArts/?texto=${nomeSalvo}`;
+  }
+});
+
+function clicou() {
+  var caixa = document.getElementById("caixa");
+  var texto = caixa.value;
+
+  if (texto.length < 3 || texto.length > 10) {
+    alert("Nome deve ter entre 3 e 10 letras");
+    caixa.value = "";
+    return;
+  }
+
+  if (texto.match(/\d/)) {
+    alert("O nome não pode ter números");
+    caixa.value = "";
+    return;
+  }
+
+  localStorage.setItem("teste", texto);
+  window.location.href = `https://johndevz.github.io/IdealizArts/?texto=${texto}`;
+}
+</script>
+  
 </body>
 </html>
