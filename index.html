@@ -76,13 +76,9 @@
   <button id="botao" onclick="clicou()">Entrar</button>
   
   <script>
-document.addEventListener("DOMContentLoaded", function() {
-  const nomeSalvo = localStorage.getItem("teste");
-
-  if (nomeSalvo) {
-    window.location.href = `https://johndevz.github.io/IdealizArts/?texto=${nomeSalvo}`;
-  }
-});
+if (localStorage.getItem("teste")) {
+  window.location.replace(`https://johndevz.github.io/IdealizArts/?texto=${localStorage.getItem("teste")}`);
+}
 
 function clicou() {
   var caixa = document.getElementById("caixa");
@@ -101,9 +97,8 @@ function clicou() {
   }
 
   localStorage.setItem("teste", texto);
-  window.location.href = `https://johndevz.github.io/IdealizArts/?texto=${texto}`;
+  window.location.replace(`https://johndevz.github.io/IdealizArts/?texto=${texto}`);
 }
 </script>
-  
 </body>
 </html>
