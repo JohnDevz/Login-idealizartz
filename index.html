@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>login Idealizart</title>
+    <div id="h2">Idealizart Login</div>
+</head>
+
+<style>
+  body {
+    background-color: pink;
+  }
+  
+  #h2 {
+    color: #a8f;
+    background-color: #afa;
+    border: 5px solid black;
+    -webkit-text-stroke: 2px black;
+    font-family: Times New Roman;
+    font-size: 150px;
+    text-align: center;
+    border-radius: 25px;
+  }
+  
+  #h1 {
+    color: black;
+    font-family: Trebuchet MS;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 100px;
+    position: relative;
+    left: 30%;
+    top: 1100px;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 100px;
+    width: 1600px;
+    top: 1150px;
+  }
+  
+  #caixa {
+    width: 70%;
+    height: 100px;
+    background-color: black;
+    color: white;
+    font-size: 100px;
+    font-family: Georgia
+  }
+  
+  #botao {
+    text-align: center;
+    left: 50%;
+    position: relative;
+    height: 100px;
+    width: 600px;
+    top: 1200px;
+    font-size: 100px;
+    border: 5px solid transparent black;
+    border-radius: 25px;
+  }
+  
+  #botao:hover {
+    background-color: #0f0;
+  }
+</style>
+
+<body>
+  <div id="h1">Digite Seu Nome</div>
+  <div class="container">
+    <input id="caixa" type="text">
+  </div>
+  <button id="botao" onclick="clicou()">Entrar</button>
+    <script>
+        function clicou() {
+            var texto = document.getElementById("caixa").value;
+            localStorage.setItem("teste", texto);
+            if (texto.match(/\d/)) {
+              caixa.value = ""
+              alert("O nome não pode ter numeros")
+            }
+            else {
+              window.location.href = `https://johndevz.github.io/Idealizart/?texto=${texto}`;
+            }
+        }
+    </script>
+</body>
+</html>
