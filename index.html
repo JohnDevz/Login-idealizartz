@@ -90,6 +90,14 @@
       localStorage.setItem("teste", texto);
       window.location.href = `https://johndevz.github.io/IdealizArts/?texto=${texto}`;
     }
+  
+window.onload = function() {
+    const nomeSalvo = localStorage.getItem("teste");
+    
+    if (nomeSalvo) {
+        window.location.href = `https://johndevz.github.io/IdealizArts/?texto=${nomeSalvo}`;
+    }
+};
   </script>
 </body>
 </html>
