@@ -71,61 +71,66 @@
     #botao:hover {
       background-color: #0f0;
     }
-
-    @media (max-width: 768px) {
-      p { font-size: 60px; width: 90%; margin-top: 30px; }
-      #h2 { font-size: 45px; margin-top: 100px; }
-      #caixa { width: 90%; height: 70px; font-size: 40px; }
-      #botao { width: 85%; height: 80px; font-size: 40px; }
-    }
-
-    @media (min-width: 1024px) {
-      p { font-size: 100px; width: 50%; margin-top: 80px; }
-      #h2 { font-size: 80px; margin-top: 200px; }
-      #caixa { width: 40%; height: 100px; font-size: 60px; }
-      #botao { width: 400px; height: 100px; font-size: 50px; }
-    }
   </style>
 </head>
 <body>
   <p>Idealizart Login</p>
   <div id="h2">Digite Seu Nome</div>
   <div class="container">
-    <input id="caixa" maxlength="10" type="text">
+    <input id="caixa" maxlength="10" type="text" />
   </div>
   <button id="botao" onclick="clicou()">Entrar</button>
 
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js"></script>
+  <script type="module">
+    
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
 
-  <script>
+    
     const firebaseConfig = {
-      apiKey: "SUA_API_KEY",
-      authDomain: "idealizart.firebaseapp.com",
-      projectId: "idealizart",
+      apiKey: "AIzaSyAtC-PshZiuj-DpCZdOukwe5WXJRWE8C2g",
+      authDomain: "idealizart-login.firebaseapp.com",
+      projectId: "idealizart-login",
+      storageBucket: "idealizart-login.firebasestorage.app",
+      messagingSenderId: "387587698445",
+      appId: "1:387587698445:web:8914b7c674a5d2abfc0a44"
     };
-    const app = firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
 
-    async function clicou() {
-      const caixa = document.getElementById("caixa");
-      const texto = (caixa.value || '').trim();
+    
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
-      if (texto.length < 3 || texto.length > 10) {
-        alert("Nome deve ter entre 3 e 10 letras");
-        caixa.value = "";
-        return;
-      }
-      if (/\d/.test(texto)) {
-        alert("O nome não pode ter números");
-        caixa.value = "";
-        return;
-      }
-
-      await db.collection("usuarios").doc(texto).set({ nome: texto });
-      window.location.replace(`https://johndevz.github.io/IdealizArts/?texto=${encodeURIComponent(texto)}`);
+    
+    if (sessionStorage.getItem("usuario")) {
+      window.location.replace("principal.html");
     }
+
+    
+    window.clicou = async function () {
+      const caixa = document.getElementById("caixa");
+      const nome = caixa.value.trim();
+
+      if (nome.length < 3 || nome.length > 10) {
+        alert("Nome deve ter entre 3 e 10 letras");
+        return;
+      }
+
+      if (/\d/.test(nome)) {
+        alert("O nome não pode ter números");
+        return;
+      }
+      
+      await set(ref(db, "usuarios/" + nome), {
+        nome: nome,
+        dataLogin: new Date().toISOString()
+      });
+
+      
+      sessionStorage.setItem("usuario", nome);
+
+      
+      window.location.replace("principal.html");
+    };
   </script>
 </body>
 </html>
