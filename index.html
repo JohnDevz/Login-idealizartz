@@ -71,55 +71,19 @@
     #botao:hover {
       background-color: #0f0;
     }
-    
+
     @media (max-width: 768px) {
-      p {
-        font-size: 60px;
-        width: 90%;
-        margin-top: 30px;
-      }
-
-      #h2 {
-        font-size: 45px;
-        margin-top: 100px;
-      }
-
-      #caixa {
-        width: 90%;
-        height: 70px;
-        font-size: 40px;
-      }
-
-      #botao {
-        width: 85%;
-        height: 80px;
-        font-size: 40px;
-      }
+      p { font-size: 60px; width: 90%; margin-top: 30px; }
+      #h2 { font-size: 45px; margin-top: 100px; }
+      #caixa { width: 90%; height: 70px; font-size: 40px; }
+      #botao { width: 85%; height: 80px; font-size: 40px; }
     }
-    
+
     @media (min-width: 1024px) {
-      p {
-        font-size: 100px;
-        width: 50%;
-        margin-top: 80px;
-      }
-
-      #h2 {
-        font-size: 80px;
-        margin-top: 200px;
-      }
-
-      #caixa {
-        width: 40%;
-        height: 100px;
-        font-size: 60px;
-      }
-
-      #botao {
-        width: 400px;
-        height: 100px;
-        font-size: 50px;
-      }
+      p { font-size: 100px; width: 50%; margin-top: 80px; }
+      #h2 { font-size: 80px; margin-top: 200px; }
+      #caixa { width: 40%; height: 100px; font-size: 60px; }
+      #botao { width: 400px; height: 100px; font-size: 50px; }
     }
   </style>
 </head>
@@ -130,31 +94,38 @@
     <input id="caixa" maxlength="10" type="text">
   </div>
   <button id="botao" onclick="clicou()">Entrar</button>
-  
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js"></script>
+
   <script>
-if (localStorage.getItem("teste")) {
-  window.location.replace(`https://johndevz.github.io/IdealizArts/?texto=${localStorage.getItem("teste")}`);
-}
+    const firebaseConfig = {
+      apiKey: "SUA_API_KEY",
+      authDomain: "idealizart.firebaseapp.com",
+      projectId: "idealizart",
+    };
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
-function clicou() {
-  var caixa = document.getElementById("caixa");
-  var texto = caixa.value;
+    async function clicou() {
+      const caixa = document.getElementById("caixa");
+      const texto = (caixa.value || '').trim();
 
-  if (texto.length < 3 || texto.length > 10) {
-    alert("Nome deve ter entre 3 e 10 letras");
-    caixa.value = "";
-    return;
-  }
+      if (texto.length < 3 || texto.length > 10) {
+        alert("Nome deve ter entre 3 e 10 letras");
+        caixa.value = "";
+        return;
+      }
+      if (/\d/.test(texto)) {
+        alert("O nome não pode ter números");
+        caixa.value = "";
+        return;
+      }
 
-  if (texto.match(/\d/)) {
-    alert("O nome não pode ter números");
-    caixa.value = "";
-    return;
-  }
-
-  localStorage.setItem("teste", texto);
-  window.location.replace(`https://johndevz.github.io/IdealizArts/?texto=${texto}`);
-}
-</script>
+      await db.collection("usuarios").doc(texto).set({ nome: texto });
+      window.location.replace(`https://johndevz.github.io/IdealizArts/?texto=${encodeURIComponent(texto)}`);
+    }
+  </script>
 </body>
 </html>
